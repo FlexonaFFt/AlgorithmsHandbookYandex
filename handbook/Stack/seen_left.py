@@ -1,36 +1,25 @@
 import sys
-from collections import deque
-from typing import List, Tuple
 
-def visibility_left(nums: List[int]) -> List[int]:
-    stack: deque[Tuple[int, int]] = deque()
-    res = [0] * len(nums)
-    for i, a in enumerate(nums):
-        seen = 0
-        while stack and stack[-1][0] < a:
-            _, cnt = stack.pop()
-            seen += cnt
-        if stack and stack[-1][0] == a:
-            val, cnt = stack.pop()
-            seen += cnt
-            if stack:
-                seen += 1
-            stack.append((a, cnt + 1))
+def main() -> None:
+    data = list(map(int, sys.stdin.buffer.read().split()))
+    n = data[0]
+    a = data[1:]  
+
+    ans = [0] * n
+    st = []  
+
+    for i, x in enumerate(a):
+        while st and a[st[-1]] < x:
+            st.pop()
+
+        if not st:
+            ans[i] = i
         else:
-            if stack:
-                seen += 1
-            stack.append((a, 1))
-        res[i] = seen
-    return res
+            ans[i] = i - st[-1] - 1
 
-def main():
-    data = sys.stdin.read().strip().split()
-    if not data:
-        return
-    n = int(data[0])
-    nums = list(map(int, data[1:1 + n]))
-    ans = visibility_left(nums)
-    print(" ".join(map(str, ans)))
+        st.append(i)
+
+    sys.stdout.write(" ".join(map(str, ans)))
 
 if __name__ == "__main__":
     main()
