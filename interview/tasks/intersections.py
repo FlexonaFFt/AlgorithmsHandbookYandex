@@ -21,5 +21,8 @@ def common_elements(nums1: list[int], nums2: list[int]) -> list[int]:
 # Решение через множества
 def find_common(nums1: list[int], nums2: list[int]) -> list[int]:
     common = set(nums1).intersection(set(nums2))
+    result: list[int] = []
     for element in common:
         occurs = min(nums1.count(element), nums2.count(element))
+        result.extend([element] * occurs)
+    return result
