@@ -1,5 +1,5 @@
 class Solution:
-    def main(self, array: list[int]) -> int:
+    def main(self, array: list[int]):
         max1 = max2 = max3 = -10**8
         min1 = min2 = 10**8
 
