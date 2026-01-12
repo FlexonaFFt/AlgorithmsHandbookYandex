@@ -38,6 +38,17 @@ class MySolution:
         output.append(string[start] if counter == 1 else string[start] + str(counter))
         return ''.join(output)
 
+    # Решение через itertools
+    def rle2(self, string: str) -> str:
+        from itertools import groupby
+        if any(not ("A" <= c <= "z") for c in string):
+            raise ValueError("Invalid input")
+
+        return ''.join(
+            char if (cnt := len(list(grp))) == 1 else f"{char}{cnt}"
+            for char, grp in groupby(string)
+        )
+
 
 # тесты
 if __name__ == '__main__':
