@@ -1,16 +1,17 @@
-class Solution():
+class Solution:
     def longest_substring(self, string: str) -> int:
-        left, best, counter = 0, 0, {}
+        left, best = 0, 0
+        counter = {}
 
         for right, val in enumerate(string):
             counter[val] = counter.get(val, 0) + 1
 
             while counter[val] > 1:
-                counter[string[left]] -= 1
+                left_char = string[left]
+                counter[left_char] -= 1
+                if counter[left_char] == 0:
+                    del counter[left_char]
                 left += 1
-
-                if counter[string[left]] == 0:
-                    del counter[string[left]]
 
             best = max(best, right - left + 1)
 
