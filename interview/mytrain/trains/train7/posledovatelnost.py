@@ -24,6 +24,27 @@ class MySolve:
         else: output.append(current_string[start] + str(counter))
         return ''.join(output)
 
+    def rle_func(self, string: str) -> str:
+        if not string: return ''
+        output, current = [], string[0]
+
+        if not ("A" <= current <= "Z"):
+            print("Invalid string")
+
+        counter = 1
+        for char in string[1:]:
+            if not ("A" <= current <= "Z"):
+                print("Invalid string")
+            if char == current:
+                counter += 1
+            else:
+                output.append(current if counter == 1 else current + str(counter))
+                current, counter = char, 1
+
+        output.append(current if counter == 1 else current + str(counter))
+        return ''.join(output)
+
 
 if __name__ == '__main__':
     print(MySolve().my_rle_func('AAAABBBBBTTABB'))
+    print(MySolve().rle_func('AAAABBBBBTTABB'))
